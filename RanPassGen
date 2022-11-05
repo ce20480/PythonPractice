@@ -1,0 +1,15 @@
+import random
+
+def RanPassGen(Length):
+    lower = 'abcdefghijklmnoqrstuvwxys'
+    upper = lower.upper()
+    symbols = '!@££$^&*()_#-+={[]}:"|<>?;\./,'
+    numbers = '1234567890'
+    all = lower + upper + symbols + numbers
+    password = ''
+    for _ in range(Length):
+        password = ''.join([password, random.choice(all)])
+    print(password)
+
+if __name__ == '__main__':
+    RanPassGen()
