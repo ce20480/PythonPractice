@@ -1,0 +1,21 @@
+time = 14.05 # this is the current time when I was writing the program
+work_starts = 8.00
+work_ends = 17.00
+
+lunch_starts = 13.00
+lunch_ends = 14.00
+
+lunch_time = time >= lunch_starts and time < lunch_ends #checking if its lunctime basically and both must be true for it to be lunch
+work_time = not(time < work_starts or 
+                time > work_ends or 
+                lunch_time) #work is not after or before work or lunch
+# print(lunch_time)
+# print(work_time)
+
+# upgraded time-telling 
+if lunch_time: #same as if lunch_time == True
+    print('Eat Lunch')
+elif work_time:
+    print('Do work')
+else:
+    print('Go home') 
