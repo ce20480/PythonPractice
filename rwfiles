@@ -1,0 +1,83 @@
+'''
+how to read and write from files 
+open(file_path, mode_specifier)
+close - not automatically closed, risk of overwriting, saves changes to file, depending on OS might not be able to read and write file while opening
+r: open an existing file to read
+r+:(+ means read and write) open a text file to read from or write to(file must already exist and if file exists over-writes previous contents)
+w: open an existing file to write to, if no file exists: craetes a new file, if file exits: over-writes previous contents
+w+: same as w pretty much
+a: open an existing file to write to, f no file exists: creates a new file, if file exists: append text to end of file
+a+: open a text file to read from or write to, if no file exists: creates new file, if file exists: appends text to end of file
+for file paths:
+    ../ lets you go back a folder this allows you to find out where the other file is 
+    example if its in a neighbour folder: open(../Folder_name/File_name, 'w')
+    example if its one tier up: open(.../File_name, 'w')
+'''
+#  ways to write in a file
+# text = 'Hemma 33'
+# file = open('scores.txt', 'w')
+# file.write(text + '\n')
+# file.close()
+
+# text = 'Farhad 44'
+# file = open('scores.txt', 'a')
+# file.write(text + '\n')
+# file.close()
+'''playing around with writing and reading'''
+# scores = {'Manesha': 80,
+#           'Hannah' : 67,
+#           'Sajid'  : 50
+#           }
+
+# file = open('scores.txt', 'a')
+# for k, v in scores.items():
+#     file.write(k+ ' ' +str(v)+ '\n')
+# file.close()
+# new = 'Tim 87'
+# with open('scores.txt', 'r+') as file:
+#     file.write(f'{new} \n')
+#     names = []
+#     scores = []
+#     for line in file:
+#         # print(line, end='')# print makes the lines go on different lines since both our text file and the print uses \n so we change the end to nothing
+#         i = line.split()# creates list of string items in each line 
+#         names.append(i[0])
+#         scores.append(int(i[1]))
+
+# MaxIndex = scores.index((max(scores)))
+# if new.split()[0] == names[MaxIndex]:
+#     print('NEW HIGH SCORE!')
+# '''different ways to print the exact same message '''
+# print(f'highest score player: {names[MaxIndex]} \nplayer scored: {str(scores[MaxIndex])}')# best way
+# print('highest score player:', names[MaxIndex],'\nplayer scored:',str(scores[MaxIndex]))
+# print('highest score player: ' + 
+#       names[MaxIndex]+
+#       '\nplayer scored: ' + 
+#       str(scores[MaxIndex])) 
+# print('highest score player: %s \nplayer scored: %s' % (names[MaxIndex], str(scores[MaxIndex])))
+# print('highest score player: {} \nplayer scored: {}'.format(names[MaxIndex],str(scores[MaxIndex])))
+
+'''
+best way to open and write during a file
+'''
+# scores2 = {'Lisa': 50,
+#           'Zoe' : 50,
+#           'Ben'  : 50
+#           }
+# with open('scores.txt','a') as file:
+#     '''
+#     all indented lines will keep file open until next unindented line
+#     '''
+#     for k,v in scores2.items():
+#         file.write(f'{k} {str(v)} \n')
+'''how to use inputs to save in a text file'''
+name = input('enter your name: ')
+score = input('what was your score: ')
+with open('scores.txt', 'a') as file:
+    file.write(f'{name} {str(score)} \n')
+
+
+
+
+    
+
