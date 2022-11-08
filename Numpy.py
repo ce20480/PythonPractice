@@ -24,6 +24,14 @@ y3 = np.ones((2,2))# gives n amount of ones as a tuple
 u = np.linspace(1,10,10)# gives n amount of equally spaced values
 i = np.eye(4)# nxn I matrix
 # or to create the array you can first create 1-D array then re-shape into 2-D
-x = np.arrange(0,20)#start inlcusive, end exlcusive
-x = x.reshape(4,5)
+x = np.arange(0,20)#start inlcusive, end exlcusive
+x = x.reshape(4,5)# reshape array into reshape(rows,columns)
+
+'''
+more mathematical operations
+'''
+# random
+#uniform distribution
+R = np.random.rand(2,2)
+print(R)
 
