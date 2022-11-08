@@ -7,7 +7,6 @@ x1 = [x for x in range(2,7)]
 y1 = [a+2 for a in x1]
 x =  np.array(x1)# 1-D array
 y = x + 2
-print(y1, y)
 
 nums2 = np.array([[2,4,6], [8,10,12], [14,16,18], [14,16,18]])#2-D array
 C = nums2[1:3,1:]#take rows 1,2 and all columns exlcuding column 0
@@ -30,8 +29,16 @@ x = x.reshape(4,5)# reshape array into reshape(rows,columns)
 '''
 more mathematical operations
 '''
-# random
-#uniform distribution
+from numpy.random import randint
+#random
+#uniform distribution 
 R = np.random.rand(2,2)
-print(R)
-
+#Gaussian/normal distribution
+R2 = np.random.randn(3,3)
+#Min/Max
+R = randint(50,100,5)# rand integer from 50 - 100 with 5 values
+xmin = R.min()
+xmax = R.max()
+x = np.arange(3)
+y = np.arange(3) 
+print(x.dot(y))
