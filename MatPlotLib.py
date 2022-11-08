@@ -73,7 +73,72 @@ scatter
 can use plt.plot
 or plt.scatter
 '''
-plt.plot(x,y, 'ro')
+# plt.plot(x,y, 'ro')
+# plt.show()
+# plt.scatter(x,y)
+# plt.show()
+
+'''
+how to save plots
+plt.savefig('my-plot.pdf) or .png to save in in the current directory
+'''
+# plt.plot(x,f)
+# plt.savefig('my-plot.pdf')#save fig in current directory
+# plt.savefig('my-plot.png')#save fig in current directory
+# plt.show()# if called before saving, saved figure will be blank
+'''
+importing data
+csv - comma seperating values 
+using numpy
+'''
+'''
+import csv
+# data_path = 'signal_data.csv'
+data_path = 'Temperature.csv'
+
+with open(data_path, 'r') as f:
+    
+    #producing plot for singal_data
+
+    reader = csv.reader(f,delimiter=',')
+    # data = np.array(list(reader)).astype(float for the signal
+    data = list(reader)# not immediately create numpy array since file contains text and numerical values
+cities = [d[0] for d in data][1:]# can either do that or [d[0] for d in data[1:]] this removes the blank element from original list rather than created list
+data = [d[1:] for d in data] #because d is a singular list d[1:] gets all elements after and including the first element
+headers = data[0]
+data = np.array(data[1:]).astype(float)#just to check that we dont have mixed type of data
+
+# # 1. array with the position of each bar
+x_pos = np.arange(data.shape[1])#gives number of columns of the data
+
+# Width of each bar
+W = 0.2
+
+# # 2. Bar plot
+for i in range(data.shape[0]):#gives number of rows of the data same as 3 in this case
+    plt.bar(x_pos, data[i,:], width=W, label=cities[i])
+    x_pos = x_pos + W
+
+# # 3. Replace x ticks with text
+# Rotate labels 30 degrees 
+plt.xticks(x_pos-W, headers, rotation=30)
+
+# # 4. Add axis labels
+plt.xlabel('2007')
+plt.ylabel('ave temp deg C')
+plt.legend()
 plt.show()
-plt.scatter(x,y)
+
+#plt.plot(data[0,:], data[1,:]) for signal plotting row 1 against row 2
+'''
+#numpy method with line graph
+data = np.loadtxt( 'Temperature.csv', delimiter=',',
+                  skiprows=1, usecols=range(1,7))# have to work with numerical data only
+
+for i in range(data.shape[0]):
+    plt.plot(data[i,:])
+
 plt.show()
+
+
+
