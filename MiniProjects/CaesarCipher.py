@@ -1,4 +1,5 @@
 import random
+import re
 class Cryptography:
     def __init__(self,mode,RotVal,message):
         self.mode = mode
@@ -20,14 +21,15 @@ class Cryptography:
         char = list(message)
         char = [ord(c.upper()) for c in char]
         for count,c in enumerate(char):
-            if c >= (90-self.RotVal):
-                Rot = self.RotVal - (90-c)
-                c = ord('A') + Rot
-            else:
-                c += self.RotVal
+            if c >= 65 and c <= 90:
+                if c >= (90-self.RotVal):
+                    Rot = self.RotVal - (90-c)
+                    c = ord('A') + Rot
+                else:
+                    c += self.RotVal
             char[count] = c
         # RotChar = [c+self.RotVal for c in char] cant use this because if the ascii value is close to z then the rotation will send the ascii towards none alphabet characters
-        EncrList = [chr(c).lower() for c in char]
+        EncrList = [chr(c) for c in char]
         self.message  = ''.join(EncrList)
         return self.message # dont actually need the return
     
@@ -43,7 +45,7 @@ class Cryptography:
                 c -= self.RotVal
             char[count] = c
         # RotChar = [c-self.RotVal for c in char]
-        EncrList = [chr(c).lower() for c in char]
+        EncrList = [chr(c) for c in char]
         self.message = ''.join(EncrList)
         return self.message
 
@@ -85,20 +87,25 @@ if __name__ == '__main__':
     x = False
     y = False
     t = False
+    q = False
     while x == False:
-        try:
-            CheckRan = bool(input('Do you want a random rotation value:(True/False) '))
-            if CheckRan: 
-                RotVal = random.randint(0,26)
-                x = True
-            else:
+        # try:
+        CheckRan = input('Do you want a random rotation value:(Yes(Y)/No(N)) ')
+        if CheckRan in ['Yes', 'y', 'Y', 'yes']: 
+            RotVal = random.randint(0,26)
+            x = True
+        elif CheckRan in ['No','n','N','no']:
+            while q == False:
                 try:
                     RotVal = int(input('What rotation value do you want: '))%26
-                    x = True
+                    q = True
                 except ValueError:     
                     print('please input a number')
-        except ValueError:
-            print('Please input True/False')
+            x = True
+        else:
+            print('Make sure that you answer Yes(Y)/No(N)')
+        # except ValueError:
+        #     print('Please input True/False')
     mode = input('What mode do you want the program in: Encrypt(E)/Decrypt(D) ') 
     while t == False:
         if mode in ['E', 'e', 'encrypt', 'Encrypt']:
@@ -113,11 +120,12 @@ if __name__ == '__main__':
             print('Please input the mode correctly either as Encrypt/Decrypt, encrypt/decrypt, E/D or e/d')
             mode = input('What mode do you want the program in: Encrypt(E)/Decrypt(D) ') 
     while y == False:
-        if message.isalpha():
+        if re.findall(r'[A-Za-z,\s\d]', message) == list(message):
             y = True
         else:
-            print('Make sure there are only letters in your message')
+            print('Make sure your message was in the correct format(only containing letters numbers or punctuation.')
             message = input('What message do you want to '+ mode +'ed ')
+            break
     print(Cryptography(mode, RotVal, message))
     
 
