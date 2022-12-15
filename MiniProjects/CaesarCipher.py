@@ -1,10 +1,11 @@
 import random
 import re
 class Cryptography:
-    def __init__(self,mode,RotVal,message):
+    def __init__(self,mode,RotVal,message, stats):
         self.mode = mode
         self.RotVal = RotVal
         self.message = message
+        self.stats = stats
         self.Check()
 
     def __repr__(self):
@@ -22,7 +23,7 @@ class Cryptography:
         char = [ord(c.upper()) for c in char]
         for count,c in enumerate(char):
             if c >= 65 and c <= 90:
-                if c >= (90-self.RotVal):
+                if c > (90-self.RotVal):
                     Rot = self.RotVal - (90-c)
                     c = ord('A') + Rot
                 else:
@@ -39,21 +40,72 @@ class Cryptography:
         char = [ord(c.upper()) for c in char]# ord makes integer
         for count,c in enumerate(char):
             if c >= 65 and c <= 90:
-                if c <= (65+self.RotVal):
+                if c < (65+self.RotVal):
                     Rot =  self.RotVal - (c - 65)
                     c = ord('Z') - Rot
-                c -= self.RotVal
+                else:
+                    c -= self.RotVal
             char[count] = c
         # RotChar = [c-self.RotVal for c in char]
         EncrList = [chr(c) for c in char]
         self.message = ''.join(EncrList)
+        if self.stats == 'Y':
+            self.Statistics()
         return self.message
 
     def Check(self):
         if self.mode in ['E', 'encrypt', 'Encrypt','e']:
-            self.encrypt()
+            if self.stats == 'Y':
+                self.Statistics()
+                self.encrypt()
         elif self.mode in ['D', 'd', 'Decrypt', 'decrypt']:
             self.decrypt()
+
+    def Statistics(self):
+        LetterList = re.findall(r'[,\D]',self.message)
+        WordList = []
+        WordDict = {}
+        for letter in LetterList:
+            try:
+                WordList.append[letter]
+            except letter == ' ':
+                if len(WordList) == 0:
+                    continue
+                else:
+                    word = "".join(WordList)
+                    try:
+                        WordDict[word] += 1
+                    except KeyError:
+                        WordDict[word] = 1
+        WordDict = {k: v for k, v in sorted(WordDict.items(), key= lambda item: item[1])}
+        CommonWords = []
+        try:
+            for i in range(10):
+                i *= 2
+                key = list(WordDict)[-1-i]
+                CommonWords.append(WordDict[key])
+        except IndexError:
+            print('The common words are(descending order):')
+            for count, i in enumerate(CommonWords):
+                print(f'{count}: {i}')
+        i = 0
+        for v in WordDict.values():
+            if v == 1:
+                i += 1
+
+        NumWords = len(list(WordDict))/2
+        print(f'The total number of words is: {NumWords}')
+        print(f'The number of unique words is: {i}')
+
+
+                    
+
+
+                
+
+
+
+
     
     # def Inputs(self):
     # tried to 
@@ -88,6 +140,7 @@ if __name__ == '__main__':
     y = False
     t = False
     q = False
+    m = False
     while x == False:
         # try:
         CheckRan = input('Do you want a random rotation value:(Yes(Y)/No(N)) ')
@@ -123,10 +176,24 @@ if __name__ == '__main__':
         if re.findall(r'[A-Za-z,\s\d]', message) == list(message):
             y = True
         else:
-            print('Make sure your message was in the correct format(only containing letters numbers or punctuation.')
-            message = input('What message do you want to '+ mode +'ed ')
+            print('Make sure your message was in the correct format(only containing letters,numbers or punctuation).')
+            message = input('What message do you want to '+ mode +'ed: ')
             break
-    print(Cryptography(mode, RotVal, message))
+    # LetterList = re.findall(r'[\D]',message)
+    # LetterList = ''.join(LetterList)
+    # print(LetterList)
+    while m == False:
+        stats = input('Do you want your stats on your message(Yes(Y)/No(N))')
+        if stats in ['Yes','Y','y','yes']:
+            print(Cryptography(mode, RotVal, message))
+        elif stats in ['No','N','n','no']:
+            print(Cryptography(mode, RotVal, message))
+            m = True
+        else:
+            print('Please input Yes(Y)/No(N)')
+    
+
+    
     
 
 

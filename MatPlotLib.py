@@ -132,13 +132,40 @@ plt.show()
 #plt.plot(data[0,:], data[1,:]) for signal plotting row 1 against row 2
 '''
 #numpy method with line graph
-data = np.loadtxt( 'Temperature.csv', delimiter=',',
-                  skiprows=1, usecols=range(1,7))# have to work with numerical data only
+# data = np.loadtxt( 'Temperature.csv', delimiter=',',
+#                   skiprows=1, usecols=range(1,7))# have to work with numerical data only
 
-for i in range(data.shape[0]):
-    plt.plot(data[i,:])
+# for i in range(data.shape[0]):
+#     plt.plot(data[i,:])
 
+# plt.show()
+
+'''
+curve fitting
+'''
+
+# x = [1, 3, 5 , 6, 19, 30, 40, 20, 10, 15, 21, 23]
+# y = [1, 4, 4, 7, 20, 45, 32, 25, 50, 60, 71, 21]
+
+# x = np.array(x)
+# y = np.array(y)
+# a, b, c = np.polyfit(x,y,2)
+# coeffs = np.polyfit(x,y,2)
+# # same ways of creating fit function
+# yfit2 = np.poly1d(coeffs)(x)
+# yfit2 = a*x**2 + b*x + c
+# yfit2 = coeffs[0]*x**2 + coeffs[1]*x + coeffs[2]
+
+# plt.scatter(x,y)
+# plt.scatter(x,yfit2)
+# plt.show()
+
+N = 10
+xs = np.random.random(N)
+ys = np.random.random(N)
+trend = np.polyfit(xs,ys,1)
+plt.plot(xs,ys,'o')
+trendpoly = np.poly1d(trend) 
+plt.plot(xs,trendpoly(xs))
 plt.show()
-
-
 
