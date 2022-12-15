@@ -25,3 +25,27 @@ for line in fhand:
     for word in words:
         counts[word] = counts.get(word, 0) + 1 #.get() gets value from key but if key doesnt exists gives value of 2 argument
 print(counts)
+
+from bs4 import BeautifulSoup #bs4 allows us to use BeatifulSoup which is a file that has a way to scan for url's in hmtl files
+
+url = input('Enter - ') # example input Enter - https://dr-chuck.com/page1.htm and it will give you https://dr-chuck.com/page2.htm
+html = urllib.request.urlopen(url).read()
+soup = BeautifulSoup(html, 'html.parser')
+# retrieve all anchor tags which is the beginning or end of text which represents hyper text links
+tags = soup('a')
+for tag in tags:
+    print(tag.get('href', None))
+
+import ssl
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ctx.CERT_NONE
+
+url = input('Enter - ') # example input Enter - https://dr-chuck.com/page1.htm and it will give you https://dr-chuck.com/page2.htm
+html = urllib.request.urlopen(url, context=ctx).read()
+soup = BeautifulSoup(html, 'html.parser')
+# retrieve all anchor tags which is the beginning or end of text which represents hyper text links
+tags = soup('a')
+for tag in tags:
+    print(tag.get('href', None))
