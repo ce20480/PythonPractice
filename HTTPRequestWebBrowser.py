@@ -49,3 +49,19 @@ soup = BeautifulSoup(html, 'html.parser')
 tags = soup('a')
 for tag in tags:
     print(tag.get('href', None))
+
+import xml.etree.ElementTree as ET
+# xml is better for rich and hiearchical documents(word)
+# json is more efficient at moving data between 2 systems 
+# The ''' allows for strings to go onto different lines and this is what data a network would send and we would do the methods below to understand it
+data = '''<person> 
+  <name>chuck</name>
+  <phone type='int1'>
+    +1 734 303 4456
+  </phone>
+  <email hide='yes'/>
+<person>'''
+
+tree = ET.fromstring(data)
+print('Name: ', tree.find('name').text)
+print('Attr: ', tree.find('email').get('hide'))
