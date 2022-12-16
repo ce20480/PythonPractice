@@ -65,3 +65,39 @@ data = '''<person>
 tree = ET.fromstring(data)
 print('Name: ', tree.find('name').text)
 print('Attr: ', tree.find('email').get('hide'))
+
+input = '''<stuff>
+    <users>
+        <user x="2"
+            <id>001</id>
+            <name>Chuck</name>
+        </user>
+        <user x="7">
+            <id>009</id>
+            <name>Brent</name>
+        </user>
+    </users>
+</stuff>'''
+
+stuff = ET.fromstring(input)
+lst = stuff.findall("users/user")
+print('User count: ', len(lst))
+for item in lst:
+    print('Name: ', item.find('name').text)
+    print('Id: ', item.get('id').text)
+    print('Attribute: ', item.get("x")) #how complicated it is to worth with xml when there is multiple layers in the data
+import json 
+# JSON represents data as nested lists and dictionaries and returns a python dictionary(can be a dict of lists)
+data = '''{
+    "name" : Chuck,
+    "phone" : {
+        "type" : "int1",
+        "number" : +1 734 303 4456"
+    }
+    "email" : {
+        "hide" : "yes"
+    }'''
+
+info = json.loads(data)
+print("Name: ", info["name"])
+print('Hide: ', info["hide"])
