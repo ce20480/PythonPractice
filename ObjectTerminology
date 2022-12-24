@@ -1,0 +1,5 @@
+Objects
+Class --> is a template of the overall structure for the program defines the rules for the object
+Method/Message --> A predefined function or capability of the class lives in the class
+Field/Attribute --> A bit of data about the class 
+Object/instance --> A particular instance or state for the class
