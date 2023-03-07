@@ -1,0 +1,8 @@
+site_name: My First Docs
+
+nav:
+  - Home: index.md
+  - Calculator: calculator.md
+
+plugins:
+  - mkdocstrings
